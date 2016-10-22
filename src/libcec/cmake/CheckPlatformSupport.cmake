@@ -9,6 +9,9 @@
 #       HAVE_RPI_API              ON if Raspberry Pi is supported
 #       HAVE_TDA995X_API          ON if TDA995X is supported
 #       HAVE_EXYNOS_API           ON if Exynos is supported
+#	HAVE_IMX_API		  ON if i.MX is supported
+#	HAVE_AOCEC_API		  ON if AOCEC is supported
+#       HAVE_AMLOGIC_API	  ON if Amlogic is supported
 #       HAVE_P8_USB               ON if Pulse-Eight devices are supported
 #       HAVE_P8_USB_DETECT        ON if Pulse-Eight devices can be auto-detected
 #       HAVE_DRM_EDID_PARSER      ON if DRM EDID parsing is supported
@@ -133,6 +136,36 @@ else()
                                    adapter/Exynos/ExynosCECAdapterCommunication.cpp)
     source_group("Source Files\\adapter\\Exynos" FILES ${CEC_SOURCES_ADAPTER_EXYNOS})
     list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_EXYNOS})
+  endif()
+
+  # AOCEC
+  if (${HAVE_AOCEC_API})
+    set(LIB_INFO "${LIB_INFO}, AOCEC")
+    SET(HAVE_AOCEC_API ON CACHE BOOL "aocec not supported" FORCE)
+    set(CEC_SOURCES_ADAPTER_AOCEC adapter/AOCEC/AOCECAdapterDetection.cpp
+                                  adapter/AOCEC/AOCECAdapterCommunication.cpp)
+    source_group("Source Files\\adapter\\AOCEC" FILES ${CEC_SOURCES_ADAPTER_AOCEC})
+    list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_AOCEC})
+  endif()
+
+  # i.MX
+  if (${HAVE_IMX_API})
+    set(LIB_INFO "${LIB_INFO}, 'IMX'")
+    SET(HAVE_IMX_API ON CACHE BOOL "i.MX not supported" FORCE)
+    set(CEC_SOURCES_ADAPTER_IMX adapter/IMX/IMXCECAdapterDetection.cpp
+                                adapter/IMX/IMXCECAdapterCommunication.cpp)
+    source_group("Source Files\\adapter\\IMX" FILES ${CEC_SOURCES_ADAPTER_IMX})
+    list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_IMX})
+  endif()
+
+  # Amlogic
+  if (${HAVE_AMLOGIC_API})
+    set(LIB_INFO "${LIB_INFO}, Amlogic")
+    SET(HAVE_AMLOGIC_API ON CACHE BOOL "amlogic not supported" FORCE)
+    set(CEC_SOURCES_ADAPTER_AMLOGIC adapter/Amlogic/AmlogicCECAdapterDetection.cpp
+                                    adapter/Amlogic/AmlogicCECAdapterCommunication.cpp)
+    source_group("Source Files\\adapter\\Amlogic" FILES ${CEC_SOURCES_ADAPTER_AMLOGIC})
+    list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_AMLOGIC})
   endif()
 endif()
 

@@ -766,7 +766,11 @@ namespace CEC
         return "Raspberry Pi";
       case ADAPTERTYPE_TDA995x:
         return "TDA995x";
-      default:
+      case ADAPTERTYPE_IMX:
+	return "i.MX";
+      case ADAPTERTYPE_AOCEC:
+	return "AOCEC";
+     default:
         return "unknown";
       }
     }
